@@ -1,0 +1,723 @@
+@keyframes waveFlag {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 5px currentColor,
+                 0 0 10px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 10px currentColor,
+                 0 0 20px currentColor;
+  }
+  100% {
+    text-shadow: 0 0 5px currentColor,
+                 0 0 10px currentColor;
+  }
+}
+
+@keyframes borderPulse {
+  0% {
+    border-color: currentColor;
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 15px currentColor;
+  }
+  100% {
+    border-color: currentColor;
+    box-shadow: 0 0 5px currentColor;
+  }
+}
+
+/* Base animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes titleGlowGreen {
+  0% {
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.8),
+                 0 0 10px rgba(0, 255, 0, 0.5),
+                 0 0 15px rgba(0, 255, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.9),
+                 0 0 20px rgba(0, 255, 0, 0.7),
+                 0 0 30px rgba(0, 255, 0, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.8),
+                 0 0 10px rgba(0, 255, 0, 0.5),
+                 0 0 15px rgba(0, 255, 0, 0.3);
+  }
+}
+
+@keyframes titleGlowOrange {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(255, 165, 0, 0.8),
+                 0 0 10px rgba(255, 165, 0, 0.5);
+    opacity: 0.9;
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.9),
+                 0 0 20px rgba(255, 165, 0, 0.7);
+    opacity: 1;
+  }
+}
+
+@keyframes checkeredFlag {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-10px, 5px) rotate(0.5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes lightStreak {
+  0% {
+    transform: translateX(-100%) skew(-45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateX(100%) skew(-45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flagWave {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Neon glow animations */
+@keyframes neonFlicker {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px #0f0,
+      0 0 10px #0f0,
+      0 0 15px #0ff,
+      0 0 20px #fff;
+  }
+  98% {
+    opacity: 1;
+    text-shadow: 
+      0 0 5px #0f0,
+      0 0 10px #0f0,
+      0 0 15px #0ff,
+      0 0 20px #fff;
+  }
+  99% {
+    opacity: 0.8;
+    text-shadow: 
+      0 0 2px #0f0,
+      0 0 5px #0f0,
+      0 0 7px #0ff;
+  }
+}
+
+@keyframes checkeredWave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Main container - static with black base */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
+  background: #000;
+  /* Remove all animation from main container */
+  transform: none !important;
+  animation: none !important;
+  perspective: none !important;
+  /* Ensure container creates its own stacking context */
+  isolation: isolate;
+  /* Force hardware acceleration without transforms */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dedicated checkered flag background layer */
+.container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  display: block !important;
+  background-image: repeating-conic-gradient(
+    #000 0% 25%,
+    #111 25% 50%,
+    #000 50% 75%,
+    #111 75% 100%
+  );
+  background-size: 100px 100px;
+  /* Only the background layer gets the animation */
+  animation: flagWave 4s infinite ease-in-out;
+  transform-origin: center center;
+  pointer-events: none;
+  /* Force hardware acceleration */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  will-change: transform;
+}
+
+/* Add a subtle vignette overlay */
+.container::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+}
+
+/* Static content wrapper - fully isolated from background */
+.contentWrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  /* Ensure content stays static */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  perspective: none !important;
+  /* Prevent animation inheritance */
+  isolation: isolate;
+  /* Force hardware acceleration */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  will-change: auto;
+}
+
+/* Menu container - zero motion */
+.menuContainer {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+  /* Absolutely no motion */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  perspective: none !important;
+  transform-style: flat !important;
+  will-change: auto !important;
+  /* Double-ensure no inheritance */
+  isolation: isolate;
+  /* Force own stacking context */
+  contain: layout style paint;
+}
+
+/* Menu items - absolute stability */
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #00f0ff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  height: 4.5rem;
+  color: #00f0ff;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  /* Triple-enforce stability */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  perspective: none !important;
+  transform-style: flat !important;
+  will-change: auto !important;
+  /* Create own stacking context */
+  isolation: isolate;
+  contain: layout style paint;
+  /* Force hardware acceleration without transforms */
+  backface-visibility: hidden;
+  /* Remove any possible transitions */
+  transition-property: none !important;
+}
+
+.menuItem:hover,
+.menuItem[aria-selected="true"] {
+  color: #0f0;
+  border-color: #ff0;
+  text-shadow: 0 0 10px #0f0;
+  /* Ensure instant color change */
+  transition: none !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+.menuItem:hover *,
+.menuItem[aria-selected="true"] * {
+  color: #0f0;
+  text-shadow: 0 0 10px #0f0;
+  /* Lock child elements */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.icon {
+  font-size: 1.8rem;
+  min-width: 2.5rem;
+  text-align: center;
+  color: inherit;
+  text-shadow: inherit;
+  /* Lock icon in place */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  position: static !important;
+}
+
+.content {
+  flex-grow: 1;
+  /* Lock content in place */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  position: static !important;
+}
+
+.content h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: inherit;
+  text-shadow: inherit;
+  /* Lock heading in place */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  position: static !important;
+}
+
+.content p {
+  margin: 0.25rem 0 0 0;
+  font-size: 0.7rem;
+  color: #aaa;
+  /* Lock paragraph in place */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  position: static !important;
+}
+
+/* Track of the Day section - ensure stability and perfect alignment */
+.trackOfTheDay {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto 0;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #f0f;
+  border-radius: 8px;
+  padding: 1.5rem;
+  min-height: 6rem;
+  position: relative;
+  z-index: 2;
+  /* Prevent any animation inheritance */
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+  perspective: none !important;
+  will-change: auto !important;
+  /* Create own stacking context */
+  isolation: isolate;
+  contain: layout style paint;
+}
+
+.trackOfTheDay h4 {
+  color: #f0f;
+  text-shadow: 0 0 10px #f0f;
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.trackPreview {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  height: auto;
+  min-height: 3rem;
+}
+
+.trackInfo {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+.trackName {
+  font-size: 0.9rem;
+  color: #fff;
+  text-shadow: 0 0 5px #f0f;
+  margin: 0;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.miniMap {
+  width: 3.5rem;
+  height: 3.5rem;
+  min-width: 3.5rem;
+  background: rgba(255, 0, 255, 0.1);
+  border: 2px solid #f0f;
+  border-radius: 50%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trackStats {
+  font-size: 0.7rem;
+  color: #ccc;
+  text-shadow: 0 0 3px #f0f;
+  margin: 0;
+  text-align: right;
+  flex: 1;
+  white-space: nowrap;
+}
+
+/* Debug Panel */
+.debugPanel {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #0f0;
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #0f0;
+  z-index: 100;
+}
+
+.debugPanel p {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+  text-shadow: 0 0 5px #0f0;
+}
+
+/* Back to Menu Button */
+.backButton {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid #0f0;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  color: #0f0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.backButton:hover {
+  text-shadow: 0 0 10px #0f0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1920px) {
+  .contentWrapper {
+    padding: 1.5rem;
+  }
+  
+  .menuContainer,
+  .trackOfTheDay {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .contentWrapper {
+    padding: 1rem;
+  }
+  
+  .menuContainer,
+  .trackOfTheDay {
+    max-width: 600px;
+  }
+  
+  .menuItem {
+    height: 4rem;
+    padding: 1.25rem;
+  }
+
+  .trackOfTheDay {
+    padding: 1.25rem;
+    min-height: 5.5rem;
+  }
+
+  .trackPreview {
+    gap: 1.5rem;
+  }
+
+  .trackInfo {
+    gap: 1.5rem;
+  }
+
+  .miniMap {
+    width: 3rem;
+    height: 3rem;
+    min-width: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 0.75rem;
+  }
+  
+  .menuContainer,
+  .trackOfTheDay {
+    max-width: 100%;
+  }
+  
+  .menuContainer {
+    gap: 0.75rem;
+  }
+  
+  .menuItem {
+    height: 3.5rem;
+    padding: 1rem;
+  }
+
+  .trackOfTheDay {
+    padding: 1rem;
+    min-height: 5rem;
+  }
+
+  .trackPreview {
+    gap: 1rem;
+  }
+
+  .trackInfo {
+    gap: 1rem;
+  }
+
+  .miniMap {
+    width: 2.5rem;
+    height: 2.5rem;
+    min-width: 2.5rem;
+  }
+
+  .trackName {
+    font-size: 0.8rem;
+  }
+
+  .trackStats {
+    font-size: 0.6rem;
+  }
+
+  .content h3 {
+    font-size: 0.9rem;
+  }
+
+  .content p {
+    font-size: 0.6rem;
+  }
+
+  .icon {
+    font-size: 1.5rem;
+    min-width: 2rem;
+  }
+}
+
+/* Transition animation */
+.transition {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Menu item variants */
+.quickRace {
+  --menu-color: #0f0;
+  color: var(--menu-color);
+}
+
+.campaign {
+  --menu-color: #ff0;
+  color: var(--menu-color);
+}
+
+.trackEditor {
+  --menu-color: #0ff;
+  color: var(--menu-color);
+}
+
+.garage {
+  --menu-color: #f40;
+  color: var(--menu-color);
+}
+
+.leaderboard {
+  --menu-color: #fff;
+  color: var(--menu-color);
+}
+
+.options {
+  --menu-color: #66f;
+  color: var(--menu-color);
+}
+
+.archive {
+  --menu-color: #f0f;
+  color: var(--menu-color);
+}
+
+/* Title section - single instance */
+.titleContainer {
+  width: 100%;
+  max-width: 1000px;
+  text-align: center;
+  margin: 0 auto 3rem;
+  padding: 0;
+  transform: perspective(800px) rotateX(5deg);
+  transform-origin: center top;
+  z-index: 1;
+  position: relative;
+  /* Create own stacking context */
+  isolation: isolate;
+}
+
+.title {
+  font-size: 5rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 4px;
+  line-height: 1.2;
+  text-shadow: 0 0 10px #0f0, 0 0 20px #0f0;
+  position: relative;
+  /* Add floating animation */
+  animation: titleGlowGreen 4s infinite, titleFloat 8s infinite ease-in-out;
+  /* Ensure hardware acceleration */
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.subtitle {
+  font-size: 5rem;
+  color: #ff0;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 4px;
+  line-height: 1.2;
+  text-shadow:
+    0 0 8px #ff8800,
+    0 0 12px #ff5500,
+    0 0 16px #ff2200;
+  position: relative;
+  /* Add floating animation with slight delay */
+  animation: titleFloat 8s infinite ease-in-out 0.5s;
+  /* Ensure hardware acceleration */
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@keyframes titleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+} 

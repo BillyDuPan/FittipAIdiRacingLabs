@@ -1,0 +1,36 @@
+{
+  "vehicles": [
+    {
+      "id": "speed-demon",
+      "name": "Speed Demon",
+      "speed": 95,
+      "acceleration": 85,
+      "handling": 75,
+      "visuals": {
+        "color": "#ff0000",
+        "decals": {
+          "primary": "flames",
+          "secondary": "stripes",
+          "number": "1"
+        }
+      },
+      "classification": "official"
+    },
+    {
+      "id": "corner-master",
+      "name": "Corner Master",
+      "speed": 80,
+      "acceleration": 75,
+      "handling": 95,
+      "visuals": {
+        "color": "#0000ff",
+        "decals": {
+          "primary": "wings",
+          "secondary": "dots",
+          "number": "8"
+        }
+      },
+      "classification": "official"
+    }
+  ]
+} 

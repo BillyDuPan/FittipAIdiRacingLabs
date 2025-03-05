@@ -1,0 +1,101 @@
+{
+  "tracks": [
+    {
+      "id": "monza-jr",
+      "name": "Monza Junior",
+      "segments": [
+        {
+          "type": "straight",
+          "length": 500
+        },
+        {
+          "type": "curve",
+          "length": 200,
+          "angle": 90,
+          "direction": "right"
+        },
+        {
+          "type": "straight",
+          "length": 300
+        },
+        {
+          "type": "chicane",
+          "length": 150,
+          "direction": "left"
+        }
+      ],
+      "checkpoints": [
+        {
+          "position": 0,
+          "type": "start"
+        },
+        {
+          "position": 33,
+          "type": "sector",
+          "sectorNumber": 1
+        },
+        {
+          "position": 66,
+          "type": "sector",
+          "sectorNumber": 2
+        },
+        {
+          "position": 100,
+          "type": "finish"
+        }
+      ],
+      "surface": "asphalt",
+      "difficulty": "beginner",
+      "author": "FittipAIdi Labs",
+      "createdAt": "2024-03-01",
+      "commentary": "A beginner-friendly track inspired by the legendary Monza circuit."
+    },
+    {
+      "id": "mountain-pass",
+      "name": "Mountain Pass",
+      "segments": [
+        {
+          "type": "straight",
+          "length": 200
+        },
+        {
+          "type": "curve",
+          "length": 300,
+          "angle": 45,
+          "direction": "left"
+        },
+        {
+          "type": "chicane",
+          "length": 200,
+          "direction": "right"
+        },
+        {
+          "type": "curve",
+          "length": 250,
+          "angle": 90,
+          "direction": "left"
+        }
+      ],
+      "checkpoints": [
+        {
+          "position": 0,
+          "type": "start"
+        },
+        {
+          "position": 50,
+          "type": "sector",
+          "sectorNumber": 1
+        },
+        {
+          "position": 100,
+          "type": "finish"
+        }
+      ],
+      "surface": "mixed",
+      "difficulty": "expert",
+      "author": "FittipAIdi Labs",
+      "createdAt": "2024-03-01",
+      "commentary": "A challenging mountain course with mixed surfaces and tight corners."
+    }
+  ]
+} 
